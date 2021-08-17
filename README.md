@@ -1,6 +1,5 @@
 **Praca Dyplomowa Magisterska**
 
+## Repozytorium kodu pracy
 
-
-## Start
-Test
+Zawiera pliki .py aplikacji AI.
