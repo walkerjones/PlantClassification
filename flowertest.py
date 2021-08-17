@@ -9,8 +9,7 @@ folder_path="flowertest"
 for fname in os.listdir(folder_path):
     fpath = os.path.join(folder_path, fname)
     image_size = (180, 180) 
-    img = keras.preprocessing.image.load_img(fpath, target_size=image_size
-    )
+    img = keras.preprocessing.image.load_img(fpath, target_size=image_size)
     img_array = keras.preprocessing.image.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)  # Create batch axis
 
