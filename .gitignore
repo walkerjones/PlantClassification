@@ -3,9 +3,9 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
-# Node artifact files
-flowers/
-flowertest/
+# Data folders
+flowers/*/
+flowertest/*
 
 # Tensorflow model files
 *.h5
