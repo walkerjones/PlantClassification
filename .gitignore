@@ -6,8 +6,12 @@
 # Data folders
 flowers/*/
 flower299/*/
+fruit/*/
+
+#tensorflow save files
 h5/*.h5
 untitled_project/
+
 
 #temporary files
 temp_*.*
