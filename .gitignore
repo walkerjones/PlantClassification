@@ -6,6 +6,8 @@
 # Data folders
 flowers/*/
 h5/*.h5
+untitled_project/
 
 #temporary files
 temp_*.*
+model.png

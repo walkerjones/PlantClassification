@@ -144,11 +144,11 @@ keras.utils.plot_model(model, show_shapes=True)
 epochs = 50
 
 callbacks = [
-    keras.callbacks.ModelCheckpoint("flowers_{epoch}.h5"),
+    keras.callbacks.ModelCheckpoint("h5/flowers_{epoch}.h5"),
 ]
 model.compile(
     optimizer=keras.optimizers.Adam(1e-3),
-    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+    loss=keras.losses.SparseCategoricalCrossentropy(),
     metrics=["accuracy"],
 )
 history = model.fit(
