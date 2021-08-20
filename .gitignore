@@ -5,8 +5,7 @@
 
 # Data folders
 flowers/*/
+h5/*.h5
 
-
-# Tensorflow model files
-*.h5
-
+#temporary files
+temp_*.*

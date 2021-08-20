@@ -5,6 +5,11 @@ import os
 
 model = keras.models.load_model('flowers_98.h5')
 
+class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
+class_names_pl = ['stokrotka', 'dmuchawiec', 'róża', 'słonecznik', 'tulipan']
+significant_floor = 1/len(class_names)
+print(significant_floor)
+
 folder_path="flowertest"
 for fname in os.listdir(folder_path):
     fpath = os.path.join(folder_path, fname)
@@ -14,9 +19,10 @@ for fname in os.listdir(folder_path):
     img_array = tf.expand_dims(img_array, 0)  # Create batch axis
 
     predictions = model.predict(img_array)
-    score = predictions
+    score = predictions   
 
     print(" Inference on: ", fpath)
-    class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
+
     for i in range(5):
-        print('%12s' % class_names[i],":", ('{:.1%}'.format(score[0,i])))
+        if score[0,i] > significant_floor:
+            print('%12s'%class_names_pl[i],":", ('{:.1%}'.format(score[0,i])))
