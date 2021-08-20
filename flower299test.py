@@ -8,11 +8,11 @@ model = keras.models.load_model('h5/flower299_30.h5')
 txtfile = open("flower299/classes.txt")
 class_names = txtfile.read()
 class_names = class_names.split(",")
+classes = len(class_names)
 
-significant_floor = 1/len(class_names)
-print(significant_floor)
+significant_floor = 1/classes
 
-folder_path="flowertest"
+folder_path="flower299test"
 for fname in os.listdir(folder_path):
     fpath = os.path.join(folder_path, fname)
     image_size = (180, 180) 
@@ -25,6 +25,6 @@ for fname in os.listdir(folder_path):
 
     print(" Inference on: ", fpath)
 
-    for i in range(299):
+    for i in range(classes):
         if score[0,i] > significant_floor:
             print('%12s'%class_names[i],":", ('{:.1%}'.format(score[0,i])))

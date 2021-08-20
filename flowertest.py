@@ -7,8 +7,9 @@ model = keras.models.load_model('flowers_98.h5')
 
 class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
 class_names_pl = ['stokrotka', 'dmuchawiec', 'róża', 'słonecznik', 'tulipan']
-significant_floor = 1/len(class_names)
-print(significant_floor)
+
+classes = len(class_names)
+significant_floor = 1/classes
 
 folder_path="flowertest"
 for fname in os.listdir(folder_path):
@@ -23,6 +24,6 @@ for fname in os.listdir(folder_path):
 
     print(" Inference on: ", fpath)
 
-    for i in range(5):
+    for i in range(classes):
         if score[0,i] > significant_floor:
             print('%12s'%class_names_pl[i],":", ('{:.1%}'.format(score[0,i])))

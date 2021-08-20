@@ -8,7 +8,7 @@ model = keras.models.load_model('h5/fruits_50.h5')
 txtfile = open("fruits/classes.txt")
 class_names = txtfile.read()
 class_names = class_names.split(",")
-classes=len(class_names)
+classes = len(class_names)
 
 significant_floor = 1/classes
 
