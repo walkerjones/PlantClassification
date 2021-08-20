@@ -6,7 +6,8 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from keras.utils.vis_utils import plot_model
-
+import matplotlib.pyplot as plt
+import numpy
 """
 ## Load the data
 ## Filter out corrupted images
@@ -140,7 +141,7 @@ keras.utils.plot_model(model, show_shapes=True)
 ## Train the model
 """
 
-epochs = 100
+epochs = 50
 
 callbacks = [
     keras.callbacks.ModelCheckpoint("flowers_{epoch}.h5"),
@@ -150,6 +151,37 @@ model.compile(
     loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
     metrics=["accuracy"],
 )
-model.fit(
+history = model.fit(
     train_ds, epochs=epochs, callbacks=callbacks, validation_data=val_ds,
 )
+
+
+"""
+## list all data in history
+"""
+
+print(history.history.keys())
+
+"""
+## summarize history for accuracy
+"""
+
+plt.plot(history.history['accuracy'])
+plt.plot(history.history['val_accuracy'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
+
+"""
+## summarize history for loss
+"""
+
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
