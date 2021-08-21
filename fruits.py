@@ -1,40 +1,9 @@
-"""
-## Setup
-"""
-
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from keras.utils.vis_utils import plot_model
 import matplotlib.pyplot as plt
 import numpy
-"""
-## Load the data
-## Filter out corrupted images
-"""
-
-import os
-txtfile = open("fruits/classes.txt")
-class_names = txtfile.read()
-class_names = class_names.split(",")
-
-num_skipped = 0
-for folder_name in class_names:
-    folder_path = os.path.join("fruits", folder_name)
-    for fname in os.listdir(folder_path):
-        fpath = os.path.join(folder_path, fname)
-        try:
-            fobj = open(fpath, "rb")
-            is_jfif = tf.compat.as_bytes("JFIF") in fobj.peek(10)
-        finally:
-            fobj.close()
-
-        if not is_jfif:
-            num_skipped += 1
-            # Delete corrupted image
-            os.remove(fpath)
-
-print("Deleted %d images" % num_skipped)
 
 """
 ## Generate a `Dataset`

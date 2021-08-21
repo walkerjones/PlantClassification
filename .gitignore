@@ -7,11 +7,10 @@
 flowers/*/
 flower299/*/
 fruits/*/
-flower299test/
-fruittest/
+test_images/*/
 
 #tensorflow save files
-h5/*.h5
+h5_saves/*.h5
 untitled_project/
 
 

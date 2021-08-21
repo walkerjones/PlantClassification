@@ -1,1 +1,0 @@
-Folder 'h5' contains .h5 saved model files generated in tensorflow.
