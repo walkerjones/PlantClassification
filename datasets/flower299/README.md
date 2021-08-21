@@ -1,6 +1,10 @@
-Download https://www.kaggle.com/bogdancretu/flower299
+## Flowers-299 Dataset
 
-The pictures are divided into 299 classes.
+This directory contains the dataset of pictures.
+The pictures are divided into 299 classes, each in separate subdirectory.
+Txt file contains list of class names.
+
+Source: https://www.kaggle.com/bogdancretu/flower299
 
 Total Files Listed:
     115943 File(s)  2 005 943 538 bytes

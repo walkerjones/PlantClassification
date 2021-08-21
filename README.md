@@ -1,7 +1,4 @@
-**Praca Dyplomowa Magisterska**
+## Diploma Thesis Repository
+**Repozytorium kodu pracy dyplomowej (magisterskiej)**
 
-## Repozytorium kodu pracy
-
-Zawiera pliki .py aplikacji AI.
-
-Zestawy danych /flowers/ /flower299/
+Zawiera pliki skryptów języka Python, oraz strukturę folderów danych projektu aplikacji wykonanej w ramach pracy dyplomowej pt. "Klasyfikacja roślin z wykorzystaniem sztucznej inteligencji"
