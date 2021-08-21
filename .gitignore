@@ -4,7 +4,9 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 # Data folders
-datasets/*/
+datasets/flower299/*/
+datasets/flowers/*/
+datasets/fruits/*/
 test_images/*/
 
 #tensorflow save files
