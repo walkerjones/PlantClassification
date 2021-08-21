@@ -2,8 +2,9 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from keras.utils.vis_utils import plot_model
-import matplotlib.pyplot as plt
-import numpy
+from pathlib import Path
+import numpy as np
+import plotting
 import os
 
 dataset_directory = "flowers" #flowers/fruits/flower299
@@ -41,6 +42,15 @@ def load_val_ds():
     ##Prefetch
     val_ds = val_ds.prefetch(buffer_size=32)
     return val_ds
+
+def make_model_basic(num_classes,input_shape):
+    model = keras.Sequential([
+        keras.layers.Conv2D(64, 3, activation='relu', input_shape=input_shape),
+        keras.layers.Conv2D(32, 3, activation='relu'),
+        keras.layers.Flatten(),
+        keras.layers.Dense(num_classes, activation='softmax')
+    ])
+    return model
 
 def make_model_advanced(num_classes,input_shape):
     data_augmentation = keras.Sequential(
@@ -112,48 +122,13 @@ def fit_model(model,train_ds,val_ds,epochs):
         callbacks=callbacks, 
         validation_data=val_ds,
     )
-    return history
-
-
-def plot_history(history):
-    ## list all data in history
-    ##print(history.history.keys())
-    print("Saving history")
-
-    ## summarize history for accuracy
-    plt.plot(history.history['accuracy'])
-    plt.plot(history.history['val_accuracy'])
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig(os.path.join("saves", "graphics", dataset_directory, "advanced_acc.png"))
-    plt.close()
-
-    ## summarize history for loss
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig(os.path.join("saves", "graphics", dataset_directory, "advanced_loss.png"))
-
-def draw_model(model):
-    keras.utils.plot_model(
-    model, 
-    to_file="model_advanced.png", 
-    show_shapes = True,
-    show_dtype = False,
-    show_layer_names = True ,
-    rankdir = "TB",
-    expand_nested= False ,
-    dpi = 96,
-    layer_range = None,)
+    filepath=os.path.join("saves", dataset_directory, model_variant)
+    Path(filepath).mkdir(parents=True, exist_ok=True)
+    np.save(os.path.join(filepath,"history.npy"),history.history)
 
 def model_choice(choice):
     if choice == "basic":
-        print("Basic model")
+        model = make_model_basic(num_classes,input_shape=image_size + (3,))
     elif choice == "tuned":
         print("Tuned model")
     elif choice == "advanced":
@@ -164,6 +139,11 @@ train_ds=load_train_ds()
 val_ds=load_val_ds()
 model = model_choice(model_variant)
 compile_model(model)
-draw_model(model)
-history=fit_model(model,train_ds,val_ds,epochs)
-plot_history(history)
+fit_model(model,train_ds,val_ds,epochs)
+
+
+history=plotting.load_history(dataset_directory,model_variant)
+plotting.plot_history(history,dataset_directory,model_variant)
+
+plotting.draw_model(model_variant,model)
+

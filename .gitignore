@@ -12,3 +12,4 @@ untitled_project/
 
 # Temporary files
 temp_*.*
+__pycache__/

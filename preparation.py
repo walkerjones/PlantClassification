@@ -8,13 +8,13 @@ def cleaning(choice):
     ## Load the data
     ## Filter out corrupted images
     """
-    txtfile = open(os.path.join(choice, "classes.txt"))
+    txtfile = open(os.path.join("datasets", choice, "classes.txt"))
     class_names = txtfile.read()
     class_names = class_names.split(",")
 
     num_skipped = 0
     for folder_name in class_names:
-        folder_path = os.path.join(choice, folder_name)
+        folder_path = os.path.join("datasets", choice, folder_name)
         num_images = 0
         for fname in os.listdir(folder_path):
             fpath = os.path.join(folder_path, fname)
@@ -79,6 +79,7 @@ def statistics(choice, goal_nr_per_label):
     """
     Produces statistics for the dataset (avgs, means, stds etc)
     """
+    choice = os.path.join("datasets", choice)
     nr_specimens_per_fruit = get_dataset_label_numbers(choice)
     print(np.sum(nr_specimens_per_fruit))
     label_width_x_height_values = get_dataset_dimensions(choice, label_numbers=nr_specimens_per_fruit)
@@ -103,5 +104,5 @@ def statistics(choice, goal_nr_per_label):
 
 ##choice: fruits/flowers/flower299
 
-##cleaning("fruits")
-statistics("fruits",1000)
+cleaning("fruits")
+#statistics("fruits",1000)
