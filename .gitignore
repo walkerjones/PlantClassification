@@ -4,13 +4,11 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 # Data folders
-flowers/*/
-flower299/*/
-fruits/*/
+datasets/*/
 test_images/*/
 
 #tensorflow save files
-h5_saves/*.h5
+saves/*/
 untitled_project/
 
 
