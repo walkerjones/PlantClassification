@@ -11,3 +11,6 @@ Implementuje proces uczenia maszynowego na modelu 'zaawansowanym'. Pozwala na wy
 
 **inference.py**
 Korzysta z zapisanych modeli sieci neuronowych i przeprowadza proces inferencji na nowych danych (test_images/).
+
+**plotting.py**
+Zawiera funkcje rysujące wykresy statystyk procesu nauczania na podstawie historii, oraz przedstawianie modelu.
