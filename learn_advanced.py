@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 import numpy
 import os
 
-dataset_directory = "flowers"
-image_size = (180, 180)
-batch_size = 32
+dataset_directory = "flowers" #flowers/fruits/flower299
+model_variant = "advanced" #basic/tuned/advanced
 validation_split = 0.2
 epochs = 2
 num_classes=5
-
+image_size = (180, 180)
+batch_size = 32
 
 def load_train_ds():
     ##Load training part from dataset
@@ -42,7 +42,7 @@ def load_val_ds():
     val_ds = val_ds.prefetch(buffer_size=32)
     return val_ds
 
-def make_model(num_classes,input_shape):
+def make_model_advanced(num_classes,input_shape):
     data_augmentation = keras.Sequential(
         [
             layers.experimental.preprocessing.RandomFlip("horizontal"),
@@ -151,9 +151,18 @@ def draw_model(model):
     dpi = 96,
     layer_range = None,)
 
+def model_choice(choice):
+    if choice == "basic":
+        print("Basic model")
+    elif choice == "tuned":
+        print("Tuned model")
+    elif choice == "advanced":
+        model = make_model_advanced(num_classes,input_shape=image_size + (3,))
+    return model
+
 train_ds=load_train_ds()
 val_ds=load_val_ds()
-model = make_model(num_classes,input_shape=image_size + (3,))
+model = model_choice(model_variant)
 compile_model(model)
 draw_model(model)
 history=fit_model(model,train_ds,val_ds,epochs)
