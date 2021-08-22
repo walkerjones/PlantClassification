@@ -8,9 +8,9 @@ import plotting
 import os
 
 dataset_directory = "flowers" #flowers/fruits/flower299
-model_variant = "advanced" #basic/tuned/advanced
+model_variant = "basic" #basic/tuned/advanced
 validation_split = 0.2
-epochs = 2
+epochs = 5
 num_classes=5
 image_size = (180, 180)
 batch_size = 32
@@ -52,13 +52,14 @@ def make_model_basic(num_classes,input_shape):
     ])
     return model
 
-def make_model_advanced(num_classes,input_shape):
-    data_augmentation = keras.Sequential(
+data_augmentation = keras.Sequential(
         [
             layers.experimental.preprocessing.RandomFlip("horizontal"),
             layers.experimental.preprocessing.RandomRotation(0.1),
         ]
     )
+
+def make_model_advanced(num_classes,input_shape):    
     inputs = keras.Input(shape=input_shape)
     # Image augmentation block
     x = data_augmentation(inputs)
@@ -124,7 +125,7 @@ def fit_model(model,train_ds,val_ds,epochs):
     )
     filepath=os.path.join("saves", dataset_directory, model_variant)
     Path(filepath).mkdir(parents=True, exist_ok=True)
-    np.save(os.path.join(filepath,"history.npy"),history.history)
+    np.save(os.path.join(filepath,"history"+str(epochs)+".npy"),history.history)
 
 def model_choice(choice):
     if choice == "basic":
@@ -142,8 +143,8 @@ compile_model(model)
 fit_model(model,train_ds,val_ds,epochs)
 
 
-history=plotting.load_history(dataset_directory,model_variant)
-plotting.plot_history(history,dataset_directory,model_variant)
+history=plotting.load_history(dataset_directory,model_variant,epochs)
+plotting.plot_history(history,dataset_directory,model_variant,epochs)
 
 plotting.draw_model(model_variant,model)
 
