@@ -9,6 +9,9 @@ Pozwala na obróbkę zbiorów danych (datasets/) pod kątem kompatybliności for
 **training.py**
 Implementuje proces uczenia maszynowego na modelu 'zaawansowanym'. Pozwala na wybór zbioru danych do załadowania, buduje model i przeprowadza proces uczenia. Zapisuje wagi warstw modelu i dane statystyczne (saves/).
 
+**training_restore.py**
+Pomocniczy plik pozwalający na kontynuowanie zakończonej lub przerwanej sesji uczenia. Tworzy nową zapisy modelu i nowe dane statystyczne.
+
 **inference.py**
 Korzysta z zapisanych modeli sieci neuronowych i przeprowadza proces inferencji na nowych danych (test_images/).
 
