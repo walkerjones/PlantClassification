@@ -3,13 +3,13 @@ import tensorflow as tf
 from tensorflow import keras
 import os
 
-def load_model(dataset,model_choice):
-    model = keras.models.load_model(os.path.join("saves", dataset, model_choice))
+def load_model(dataset,model_variant,model_choice):
+    model = keras.models.load_model(os.path.join("saves", dataset, model_variant, model_choice))
     return model
 
-def inference(dataset,model_choice): 
-    model = load_model(dataset,model_choice)
-    txtfile = open(os.path.join(dataset, "classes.txt"))
+def inference(dataset,model_variant,model_choice): 
+    model = load_model(dataset,model_variant,model_choice)
+    txtfile = open(os.path.join("datasets", dataset, "classes.txt"))
     class_names = txtfile.read()
     class_names = class_names.split(",")
     classes = len(class_names)
@@ -33,4 +33,7 @@ def inference(dataset,model_choice):
             if score[0,i] > significant_floor:
                 print('%12s'%class_names[i],":", ('{:.1%}'.format(score[0,i])))
 
-inference("flowers","save_1.h5")
+
+                #Wykresy słupkowe z top5 klasami pasuje narysować tu
+
+inference("flowers","advanced","save_50.h5")

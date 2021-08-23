@@ -11,40 +11,47 @@ def load_history(dataset_directory, model_variant, epochs):
     history = np.load(filepath,allow_pickle='TRUE').item()
     return history
 
-def load_model(dataset_directory,model_choice):
-    model = keras.models.load_model(os.path.join("saves", dataset_directory, model_choice))
+def load_model(dataset_directory, model_variant, model_choice):
+    model = keras.models.load_model(os.path.join("saves", 
+        dataset_directory, model_variant, model_choice))
     return model
 
 def plot_history(history, dataset_directory, model_variant, epochs):
     directory = os.path.join("saves", "graphics", dataset_directory)
     print("Drawing history")
-    plt.tight_layout(pad=2, w_pad=2, h_pad=2)
+    
 
     ## summarize history for accuracy
-    plt.figure(figsize=(3.3,3.3))
+    ## size optimized for word document
+    plt.figure(figsize=(7.0,3))
+    plt.tight_layout()
     plt.plot(history['accuracy'])
     plt.plot(history['val_accuracy'])
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
+    #plt.title('model accuracy')
+    plt.ylabel('dokładność')
+    plt.xlabel('epoka')
+    plt.legend(['uczenie', 'walidacja'], loc='upper left')
     Path(directory).mkdir(parents=True, exist_ok=True)
-    plt.savefig(os.path.join(directory,model_variant+str(epochs))+ "_acc.png", dpi=200)
+    plt.savefig(os.path.join(directory,model_variant+str(epochs))+ "_acc.png",
+        bbox_inches='tight',transparent = True, dpi=600)
     plt.close()
 
     ## summarize history for loss
-    plt.figure(figsize=(3.3,3.3))
+    plt.figure(figsize=(7.0,3))
+    plt.tight_layout()
     plt.plot(history['loss'])
     plt.plot(history['val_loss'])
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
+    #plt.title('model loss')
+    plt.ylabel('strata')
+    plt.xlabel('epoka')
+    plt.legend(['uczenie', 'walidacja'], loc='upper right')
     Path(directory).mkdir(parents=True, exist_ok=True)
-    plt.savefig(os.path.join(directory,model_variant+str(epochs))+"_loss.png", dpi=200)
+    plt.savefig(os.path.join(directory,model_variant+str(epochs))+"_loss.png",
+        bbox_inches='tight',transparent = True, dpi=600)
     plt.close()
 
 def draw_model(model_variant,model):
+    model.summary()
     print("Drawing model")
     Path(os.path.join("saves", "graphics",)).mkdir(parents=True, exist_ok=True)
     keras.utils.plot_model(
@@ -55,18 +62,17 @@ def draw_model(model_variant,model):
         show_layer_names = True ,
         rankdir = "TB",
         expand_nested= False ,
-        dpi = 96,
+        dpi = 100,
         layer_range = None,)
 
-"""
+
 dataset_directory = "flower299"
 model_variant = "advanced"
-model_choice = "best.h5"
-epochs = 0
+model_choice = "save_100.h5"
+epochs = 100
 
 history=load_history(dataset_directory,model_variant, epochs)
 plot_history(history,dataset_directory,model_variant, epochs)
 
-model=load_model(dataset_directory, model_choice)
+model=load_model(dataset_directory, model_variant, model_choice)
 draw_model(model_variant,model)
-"""

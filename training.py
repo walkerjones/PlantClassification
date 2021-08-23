@@ -4,14 +4,14 @@ from tensorflow.keras import layers
 from keras.utils.vis_utils import plot_model
 from pathlib import Path
 import numpy as np
-import plotting
+#import plotting
 import os
 
-dataset_directory = "flowers" #flowers/fruits/flower299
-model_variant = "basic" #basic/tuned/advanced
+dataset_directory = "flower299" #flowers/fruits/flower299
+model_variant = "advanced" #basic/tuned/advanced
 validation_split = 0.2
-epochs = 5
-num_classes=5
+epochs = 100
+num_classes= 299
 image_size = (180, 180)
 batch_size = 32
 
@@ -115,7 +115,7 @@ def compile_model(model):
 def fit_model(model,train_ds,val_ds,epochs):
     callbacks = [
         keras.callbacks.ModelCheckpoint(
-            os.path.join("saves",dataset_directory, "save_{epoch}.h5")),
+            os.path.join("saves", dataset_directory, model_variant, "save_{epoch}.h5")),
     ]
     history = model.fit(
         train_ds, 
@@ -142,9 +142,10 @@ model = model_choice(model_variant)
 compile_model(model)
 fit_model(model,train_ds,val_ds,epochs)
 
-
+"""
 history=plotting.load_history(dataset_directory,model_variant,epochs)
 plotting.plot_history(history,dataset_directory,model_variant,epochs)
 
 plotting.draw_model(model_variant,model)
 
+"""
