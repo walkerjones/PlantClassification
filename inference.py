@@ -43,14 +43,14 @@ def inference(dataset,model_variant,model_choice,unique):
         print(" Inference on: ", fpath)
         for i in range(5):
             print('%12s'%class_names[int(score[1,i])],":", ('{:.1%}'.format(score[0,i])))
-            names.append(class_names[int(score[1,i])][0:11])
+            names.append(class_names[int(score[1,i])][0:14])
             values.append(100*score[0,i])
         #Drawing inference
         directory = os.path.join("saves", "graphics", dataset, "inference", unique)
         Path(directory).mkdir(parents=True, exist_ok=True)
         print("Drawing plots")          
 
-        plt.rcParams.update({'font.size': 8})
+        plt.rcParams.update({'font.size': 7})
         fig = plt.figure(figsize=(7.0,1.5))
         spec = gridspec.GridSpec(ncols=2, nrows=1, width_ratios=[1.5, 5.5])
         ax0 = fig.add_subplot(spec[0])
@@ -68,12 +68,12 @@ def inference(dataset,model_variant,model_choice,unique):
         ax1.bar(names, values)
         for i in range(5):
             if(values[i] <10):
-                ax1.text(i-0.17, values[i]+5, ('{:.1%}'.format(values[i]/100)))
+                ax1.text(i-0.17, values[i]+5, ('{:.1%}'.format(values[i]/100)), size=8)
             elif(values[i] <80):
-                ax1.text(i-0.22, values[i]+5, ('{:.1%}'.format(values[i]/100)))
+                ax1.text(i-0.22, values[i]+5, ('{:.1%}'.format(values[i]/100)), size=8)
             else:
-                ax1.text(i-0.22, values[i]-15, ('{:.1%}'.format(values[i]/100)), 
-                    color='white', fontweight='semibold')
+                ax1.text(i-0.25, values[i]-15, ('{:.1%}'.format(values[i]/100)), 
+                    color='white', fontweight='semibold', size=8)
                        
         plt.savefig(os.path.join(directory,model_variant+"_"+fname[0:12])+".png",
             bbox_inches='tight',transparent = True, dpi=600)
