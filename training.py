@@ -4,14 +4,13 @@ from tensorflow.keras import layers
 from keras.utils.vis_utils import plot_model
 from pathlib import Path
 import numpy as np
-#import plotting
 import os
 
-dataset_directory = "flower299" #flowers/fruits/flower299
+dataset_directory = "flowers" #flowers/fruits/flower299
 model_variant = "advanced" #basic/tuned/advanced
 validation_split = 0.2
 epochs = 100
-num_classes= 299
+num_classes= 5
 image_size = (180, 180)
 batch_size = 32
 
@@ -141,11 +140,3 @@ val_ds=load_val_ds()
 model = model_choice(model_variant)
 compile_model(model)
 fit_model(model,train_ds,val_ds,epochs)
-
-"""
-history=plotting.load_history(dataset_directory,model_variant,epochs)
-plotting.plot_history(history,dataset_directory,model_variant,epochs)
-
-plotting.draw_model(model_variant,model)
-
-"""

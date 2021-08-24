@@ -1,0 +1,5 @@
+jabłko,morela,awokado,banan,papryka,czarna
+jagoda,czarna
+wiśnia,czarna
+porzeczka,borówka
+ameryk.,nerkowiec,kokos,bakłażan,winogrono,jalapeno,cytryna,mango,oliwka,ananas,malina,truskawka,pomidor,arbuz,cukinia

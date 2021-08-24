@@ -16,8 +16,8 @@ def load_model(dataset_directory, model_variant, model_choice):
         dataset_directory, model_variant, model_choice))
     return model
 
-def plot_history(history, dataset_directory, model_variant, epochs):
-    directory = os.path.join("saves", "graphics", dataset_directory)
+def plot_history(history, dataset_directory, model_variant, epochs, unique_name):
+    directory = os.path.join("saves", "graphics", dataset_directory, unique_name)
     print("Drawing history")
     
 
@@ -30,7 +30,7 @@ def plot_history(history, dataset_directory, model_variant, epochs):
     #plt.title('model accuracy')
     plt.ylabel('dokładność')
     plt.xlabel('epoka')
-    plt.legend(['uczenie', 'walidacja'], loc='upper left')
+    plt.legend(['uczenie', 'walidacja'], loc='lower right')
     Path(directory).mkdir(parents=True, exist_ok=True)
     plt.savefig(os.path.join(directory,model_variant+str(epochs))+ "_acc.png",
         bbox_inches='tight',transparent = True, dpi=600)
@@ -51,7 +51,6 @@ def plot_history(history, dataset_directory, model_variant, epochs):
     plt.close()
 
 def draw_model(model_variant,model):
-    model.summary()
     print("Drawing model")
     Path(os.path.join("saves", "graphics",)).mkdir(parents=True, exist_ok=True)
     keras.utils.plot_model(
@@ -65,14 +64,17 @@ def draw_model(model_variant,model):
         dpi = 100,
         layer_range = None,)
 
+    with open(os.path.join("saves", "graphics", model_variant+".txt"), "w") as text_file:
+        model.summary(print_fn=lambda x: text_file.write(x+ '\n'))
 
-dataset_directory = "flower299"
-model_variant = "advanced"
+dataset_directory = "flowers"
+model_variant = "basic"
 model_choice = "save_100.h5"
 epochs = 100
+unique_name = "standard"
 
 history=load_history(dataset_directory,model_variant, epochs)
-plot_history(history,dataset_directory,model_variant, epochs)
+plot_history(history,dataset_directory,model_variant, epochs, unique_name)
 
 model=load_model(dataset_directory, model_variant, model_choice)
 draw_model(model_variant,model)
