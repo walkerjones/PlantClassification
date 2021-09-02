@@ -6,13 +6,15 @@ from pathlib import Path
 import numpy as np
 import os
 
-dataset_directory = "flowers" #flowers/fruits/flower299
+dataset_directory = "flower299" #flowers/fruits/flower299
 model_variant = "advanced" #basic/tuned/advanced
 validation_split = 0.2
-epochs = 100
-num_classes= 5
-image_size = (180, 180)
+epochs = 10
+num_classes= 299
+image_size = (178, 178)
 batch_size = 32
+
+#tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
 
 def load_train_ds():
     ##Load training part from dataset

@@ -12,7 +12,7 @@ def load_model(dataset,model_variant,model_choice):
     model = keras.models.load_model(os.path.join("saves", dataset, model_variant, model_choice))
     return model
 
-def inference(dataset,model_variant,model_choice,unique,verbosity): 
+def classify(dataset,model_variant,model_choice,unique,verbosity): 
     model = load_model(dataset,model_variant,model_choice)
     txtfile = open(os.path.join("datasets", dataset, "classes_pl.txt"), encoding="utf-8")
     class_names = txtfile.read()
@@ -74,9 +74,13 @@ def inference(dataset,model_variant,model_choice,unique,verbosity):
                     ax1.text(i-0.17, values[i]+5, ('{:.1%}'.format(values[i]/100)), size=8)
                 elif(values[i] <80):
                     ax1.text(i-0.22, values[i]+5, ('{:.1%}'.format(values[i]/100)), size=8)
-                else:
+                elif(values[i] <99.95):
                     ax1.text(i-0.25, values[i]-15, ('{:.1%}'.format(values[i]/100)), 
                         color='white', fontweight='semibold', size=8)
+                else:
+                    ax1.text(i-0.3, values[i]-15, ('{:.1%}'.format(values[i]/100)), 
+                        color='white', fontweight='semibold', size=8)
+
                         
             plt.savefig(os.path.join(directory,model_variant+"_"+filename[0:end])+".png",
                 bbox_inches='tight',transparent = True, dpi=600)
@@ -99,11 +103,11 @@ def evaluation(dataset,model_variant,model_choice,unique):
 
 
 
-dataset = "flowers"
-model_variant = "basic"
+dataset = "flower299"
+model_variant = "advanced"
 model_choice = "save_99.h5"
-unique_name = "basic99"
+unique_name = "test99"
 verbosity ="silent"
 
-inference(dataset, model_variant, model_choice, unique_name, verbosity)
+classify(dataset, model_variant, model_choice, unique_name, verbosity)
 evaluation(dataset, model_variant, model_choice, unique_name)

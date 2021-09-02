@@ -1,299 +1,93 @@
-Abutilon,
-Akacja,
-Tojad,
-Afr Stokrotka,
-Agapant,
-Ageratum,
-Alchemilla,
-czosnek,
-Alstremeria,
-Analiza,
-szarłat,
-Amarylis,
-Anemon,
-AnyżHyzop,
-ArmeriaMaritima,
-Aster,
-Azalia,
-Oddech dziecka,
-Guzik licencjata,
-BalonKwiat,
-Głosowanie,
-Balsam Pszczeli,
-Begonia,
-Kampanula kwiat,
-Bergamota,
-Bergenia,
-Billbergia,
-Czarnooka Susan,
-KocKwiat,
-Płonąca Gwiazda,
-Krwawiące serce,
-Bletilla,
-NiebieskookaTrawa,
-Niebieskie maski,
-Błękitna GwiazdaKwiat,
-Ogórecznik,
-Szczotka do butelek,
-Bouvardia,
-Brachyscome,
-Kapusta,
-Miotła,
-Jaskier,
-MotylKrzew,
-Pantofelnik,
-Nagietek,
-Kalifornijski Mak,
-CallaLily,
-Kamelia,
-Candytuft,
-CannaLily,
-PrzylądekLeadwort,
-PrzylądekPierwiosnek,
-Kardynał Kwiat,
-Goździk,
-Katarantus,
-Kocimiętka,
-Celozja,
-Cerastium Tomentosum,
-Cykoria,
-Chionodoksa,
-Chryzantema,
-Clarkii,
-powojnik,
-Koniczyna,
-Orlik,
-jeżówka,
-Koral Dzwony,
-Koral Winorośli,
-Coreopsis,
-Chaber,
-Korydalis,
-Kosmos,
-Irga,
-Krokosmia,
-Krokus,
-Korona Imperial,
-Rzeżucha,
-Cyklamen,
-Narcyz,
-Dalia,
-Stokrotka,
-Mniszek lekarski,
-Dafne,
-Liliowiec,
-Decumaria,
-Ostróżka,
-Kwiat pustyni,
-Deucjja,
-Dianella,
-Dianthusbarbatus,
-Diascia,
-Diety,
-Koperek,
-Disa,
-holenderski Iris,
-Przegorzan,
-żmijowiec,
-Starszy,
-Bluebell,
-Epimedium,
-Eremurus,
-Eryko,
-Erigeron,
-Euforbia,
-Eustoma,
-Wiesiołek,
-Jesienny Krokus,
-Gorączka,
-Ognik,
-FlamingKaty,
-FlanelaKwiat,
-LenKwiat,
-Kwitnący Dereń,
-Nie zapomnij mnie,
-Forsycja,
-Czwarta,
-Naparstnica,
-FrangipaniKwiat,
-frezja,
-francuski Marigold,
-Fuksja,
-Gaillardia,
-Gardenia,
-Gazanii,
-Pelargonia,
-GerberaKwiat,
-Mieczyki,
-Nawłoć,
-WinogronowyHiacynt,
-Guzmanii,
-Głóg,
-Wrzos,
-Hebe,
-Helenium,
-kocanka,
-Heliotrop,
-Ciemiernik,
-Poślubnik,
-Ostrokrzew,
-Malwa,
-Wiciokrzew,
-Hosta,
-Hiacynt,
-Hortensja,
-Hizop,
-IslandiaMak,
-Lodownia,
-niecierpki,
-IpomoeaLobata,
-Irys,
-Ixia,
-Iksora,
-Drabina Jakuba,
-Jaśmin,
-JohnnyJumpUp,
-KaffirLily,
-Kałmia,
-Łapa Kangura,
-Knautii,
-Knifofia,
-Pantofelek damski,
-Laelio,
-Lantanę,
-Ostróżka,
-Lavatera,
-Lawenda,
-CytrynaWerbena,
-Lewesiu,
-Liliowy,
-Lilia,
-Lilia doliny,
-Linaria,
-Lotos,
-Miłość we mgle,
-Księżyce,
-Łubin,
-Magnolia,
-Krzyż Maltański,
-Mandevilla,
-M Stokrotka,
-Aksamitka,
-Maciej,
-Mayflower,
-Mekonopsis,
-Mimoza,
-Kaptur Mnicha,
-MoonflowerWinorośl,
-Morea,
-Poranna Chwała,
-Mech Róża,
-Narcyz,
-Nasturcja,
-Nemezja,
-Nemofila,
-Neoregelia,
-Nerine,
-Nowa ZelandiaDrzewo Herbaciane,
-Nierembergia,
-Nolano,
-Oleander,
-Olearia,
-Orchidea,
-Lilia Wschodnia,
-Orientalny Mak,
-Wiśnia Ozdobna,
-Ornitogalum,
-Osteospermum,
-Szczawik,
-OxeyeStokrotka,
-Ostryga,
-Malowana Stokrotka,
-Bratek,
-parodia,
-PasjaKwiat,
-Pokojowa Lilia,
-Pelargonia,
-Penstemon,
-Piwonia,
-Barwinek,
-Perski Jaskier,
-Petunia,
-Floks,
-Fotynia,
-Fizostegia,
-PoduszkoweKwiat,
-Róże,
-Poinsecja,
-Polyanthus,
-MAK,
-Potentilla,
-Puder w proszku,
-QuakerPanie,
-Królowa Łąki,
-Puchar Królowej,
-Pigwa,
-Lilia Deszczowa,
-Kamienna Róża,
-Rondeletii,
-RoseofSharon,
-róże,
-Szałwia,
-Św.John's Wort,
-Scaevola,
-Pachnące Geranium,
-Scilla,
-Rozchodnik,
-ShastaStokrotka,
-Silen,
-Wyżlin,
-Przebiśnieg,
-Płatek śniegu,
-mydlnica lekarska,
-Przetacznik,
-Gwiezdny Kwiat,
-Statua,
-Słonecznik,
-Słodki groszek,
-Herbata Róża,
-TygrysKwiat,
-Tytonio,
-Zakład Tytoniowy,
-tchawica,
-Trillium,
-Tritelei,
-Tritoniacrocata,
-Trollius,
-TrąbkaWinorośl,
-Tuberoza,
-Tulipan,
-UrnaRoślina,
-Ursinii,
-UvaUrsi,
-Waleriana,
-Werbena,
-Kalina,
-Altówka,
-VirginiaCreeper,
-Lak,
-różdżka,
-Lilie wodne,
-Watsonii,
-Roślina woskowa,
-Wedelio,
-Weigela,
-Wirujące Motyle,
-zimówka,
-ZimaJaśmin,
-WishboneKwiat,
-Wełniany Fioletowy,
-ksantocerassorbifolium,
-Xerophyllum,
-ksylobium,
-ksylosma,
-krwawnik,
-żółtookiTrawa,
-Żółty Archanioł,
-Żółty Dzwonek,
-Zenobia,
-Cynia
+Abutilon,Acacia,Aconite,African
+Daisy,Agapanthus,Ageratum,Alchemilla,Allium,Alstroemeria,Alyssum,Amaranthus,Amaryllis,Anemone,Anise
+Hyssop,Armeria
+Maritima,Aster,Azalea,Baby's
+Breath,Bachelor's
+Button,Balloon
+Flower,Ballota,Bee
+Balm,Begonia,Bellflower,Bergamot,Bergenia,Billbergia,Black-eyed
+Susan,Blanket
+Flower,Blazing
+Star,Bleeding
+Heart,Bletilla,Blue-eyed
+Grass,Bluebonnets,Bluestar
+Flower,Borage,Bottlebrush,Bouvardia,Brachyscome,Brassica,Broom,Buttercup,Butterfly
+Bush,Calceolaria,Calendula,California
+Poppy,Calla
+Lily,Camellia,Candytuft,Canna
+Lily,Cape
+Leadwort,Cape
+Primrose,Cardinal
+Flower,Carnation,Catharanthus,Catmint,Celosia,Cerastium
+Tomentosum,Chicory,Chionodoxa,Chrysanthemum,Clarkia,Clematis,Clover,Columbine,Coneflower,Coral
+Bells,CoralVine,Coreopsis,Cornflower,Corydalis,Cosmos,Cotoneaster,Crocosmia,Crocus,Crown
+Imperial,Cuckoo
+Flower,Cyclamen,Daffodil,Dahlia,Daisy,Dandelion,Daphne,Daylily,Decumaria,Delphinium,Desert
+Rose,Deutzia,Dianella,Dianthusbarbatus,Diascia,Dietes,Dill,Disa,Dutch
+Iris,Echinops,Echium,Elder,English
+Bluebell,Epimedium,Eremurus,Erica,Erigeron,Euphorbia,Eustoma,Evening
+Primrose,FallCrocus,Feverfew,Firethorn,Flaming
+Katy,Flannel
+Flower,Flax
+Flower,Flowering
+Dogwood,ForgetMeNot,Forsythia,Four
+O'clock,Foxglove,Frangipani
+Flower,Freesia,French
+Marigold,Fuchsia,Gaillardia,Gardenia,Gazania,Geranium,Gerbera
+Flower,Gladiolas,Goldenrod,Grape
+Hyacinth,Guzmania,Hawthorn,Heather,Hebe,Helenium,Helichrysum,Heliotrope,Hellebore,Hibiscus,Holly,Hollyhock,Honeysuckle,Hosta,Hyacinth,Hydrangea,Hyssop,Iceland
+Poppy,Ice
+Plant,Impatiens,Ipomoea
+Lobata,Iris,Ixia,Ixora,Jacob's
+Ladder,Jasmine,Johnny
+JumpUp,Kaffir
+Lily,Kalmia,Kangaroo
+Paw,Knautia,Kniphofia,Lady's
+Slipper,Laelia,Lantana,Larkspur,Lavatera,Lavender,Lemon
+Verbena,Lewesia,Lilac,Lily,Lily of
+the Valley,Linaria,Lotus,Love in
+the Mist,Lunaria,Lupin,Magnolia,Maltese
+Cross,Mandevilla,Marguerite
+Daisy,Marigold,Matthiola,Mayflower,Meconopsis,Mimosa,Monk's
+Hood,Moonflower
+Vine,Moraea,Morning
+Glory,Moss
+Rose,Narcissus,Nasturtium,Nemesia,Nemophila,Neoregelia,Nerine,New Zealand
+Tea Tree,Nierembergia,Nolana,Oleander,Olearia,Orchid,Oriental
+Lily,Oriental
+Poppy,Ornamental
+Cherry,Ornithogalum,Osteospermum,Oxalis,Oxeye
+Daisy,Oyster
+Plant,Painted
+Daisy,Pansy,Parodia,Passion
+Flower,Peace
+Lily,Pelargonium,Penstemon,Peony,Periwinkle,Persian
+Buttercup,Petunia,Phlox,Photinia,Physostegia,Pincushion
+Flower,Pinks,Poinsettia,Polyanthus,Poppy,Potentilla,Powder
+Puff,Quaker
+Ladies,Queen of
+the Meadow,Queen's
+Cup,Quince,Rain
+Lily,Rock
+Rose,Rondeletia,Rose of
+Sharon,Roses,Sage,Saint
+John's Wort,Scaevola,Scented
+Geranium,Scilla,Sedum,Shasta
+Daisy,Silene,Snapdragon,Snowdrop,Snowflake,Soapwort,Speedwell,Starflower,Statice,Sunflower,Sweet
+Pea,Tea
+Rose,Tiger
+Flower,Tithonia,Tobacco
+Plant,Trachelium,Trillium,Triteleia,Tritonia
+crocata,Trollius,Trumpet
+Vine,Tuberose,Tulip,Urn
+Plant,Ursinia,UvaUrsi,Valerian,Verbena,Viburnum,Viola,Virginia
+Creeper,Wallflower,Wandflower,Waterlilies,Watsonia,Wax
+Plant,Wedelia,Weigela,Whirling
+Butterflies,Winterberry,Winter
+Jasmine,Wishbone
+Flower,Woolly
+Violet,Xanthoceras
+sorbifolium,Xerophyllum,Xylobium,Xylosma,Yarrow,Yellow-eyed
+Grass,Yellow
+Archangel,Yellow
+Bell,Zenobia,Zinnia
