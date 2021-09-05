@@ -6,15 +6,6 @@ from pathlib import Path
 import numpy as np
 import os
 
-dataset_directory = "flower299" #flowers/fruits/flower299
-model_variant = "advanced" #basic/tuned/advanced
-validation_split = 0.2
-epochs = 10
-num_classes= 299
-image_size = (178, 178)
-batch_size = 32
-
-#tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
 
 def load_train_ds():
     ##Load training part from dataset
@@ -53,57 +44,71 @@ def make_model_basic(num_classes,input_shape):
     ])
     return model
 
-data_augmentation = keras.Sequential(
-        [
-            layers.experimental.preprocessing.RandomFlip("horizontal"),
-            layers.experimental.preprocessing.RandomRotation(0.1),
-        ]
-    )
+def make_model_xception(num_classes,input_shape):
+    model = tf.keras.applications.Xception(
+    include_top=True,
+    weights=None,
+    input_tensor=None,
+    input_shape=input_shape,
+    pooling=None,
+    classes=num_classes,
+    classifier_activation="softmax",)
+    return model
 
-def make_model_advanced(num_classes,input_shape):    
-    inputs = keras.Input(shape=input_shape)
-    # Image augmentation block
-    x = data_augmentation(inputs)
+def make_model_vgg19(num_classes,input_shape):
+    model = tf.keras.applications.VGG19(
+    include_top=True,
+    weights=None,
+    input_tensor=None,
+    input_shape=input_shape,
+    pooling=None,
+    classes=num_classes,
+    classifier_activation="softmax")
+    return model
 
-    # Entry block
-    x = layers.experimental.preprocessing.Rescaling(1.0 / 255)(x)
-    x = layers.Conv2D(32, 3, strides=2, padding="same")(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.Activation("relu")(x)
+def make_model_resnet50v2(num_classes,input_shape):
+    model = tf.keras.applications.ResNet50V2(
+    include_top=True,
+    weights=None,
+    input_tensor=None,
+    input_shape=input_shape,
+    pooling=None,
+    classes=num_classes,
+    classifier_activation="softmax")
+    return model
 
-    x = layers.Conv2D(64, 3, padding="same")(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.Activation("relu")(x)
+def make_model_mobilev2(num_classes,input_shape):
+    model = tf.keras.applications.MobileNetV2(
+    input_shape=input_shape,
+    alpha=1.0,
+    include_top=True,
+    weights=None,
+    input_tensor=None,
+    pooling=None,
+    classes=num_classes,
+    classifier_activation="softmax")
+    return model
 
-    previous_block_activation = x  # Set aside residual
-
-    for size in [128, 256, 512, 728]:
-        x = layers.Activation("relu")(x)
-        x = layers.SeparableConv2D(size, 3, padding="same")(x)
-        x = layers.BatchNormalization()(x)
-
-        x = layers.Activation("relu")(x)
-        x = layers.SeparableConv2D(size, 3, padding="same")(x)
-        x = layers.BatchNormalization()(x)
-
-        x = layers.MaxPooling2D(3, strides=2, padding="same")(x)
-
-        # Project residual
-        residual = layers.Conv2D(size, 1, strides=2, padding="same")(
-            previous_block_activation
-        )
-        x = layers.add([x, residual])  # Add back residual
-        previous_block_activation = x  # Set aside next residual
-
-    x = layers.SeparableConv2D(1024, 3, padding="same")(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.Activation("relu")(x)
-
-    x = layers.GlobalAveragePooling2D()(x)
-     
-    x = layers.Dropout(0.5)(x)
-    outputs = layers.Dense(num_classes, activation="softmax")(x)
-    return keras.Model(inputs, outputs)
+def make_model_dense201(num_classes,input_shape):
+    model = tf.keras.applications.DenseNet201(
+    include_top=True,
+    weights=None,
+    input_tensor=None,
+    input_shape=input_shape,
+    pooling=None,
+    classes=num_classes)
+    return model
+    
+def make_model_efficientB5(num_classes,input_shape):
+    model = tf.keras.applications.EfficientNetB5(
+    include_top=True,
+    weights=None,
+    input_tensor=None,
+    input_shape=input_shape,
+    pooling=None,
+    classes=num_classes,
+    classifier_activation="softmax")
+    return model
 
 def compile_model(model):
     model.compile(
@@ -131,14 +136,41 @@ def fit_model(model,train_ds,val_ds,epochs):
 def model_choice(choice):
     if choice == "basic":
         model = make_model_basic(num_classes,input_shape=image_size + (3,))
-    elif choice == "tuned":
-        print("Tuned model")
-    elif choice == "advanced":
-        model = make_model_advanced(num_classes,input_shape=image_size + (3,))
+    elif choice == "xception":
+        model = make_model_xception(num_classes,input_shape=image_size + (3,))
+    elif choice == "vgg19":
+        model = make_model_vgg19(num_classes,input_shape=image_size + (3,))
+    elif choice == "resnet50v2":
+        model = make_model_resnet50v2(num_classes,input_shape=image_size + (3,))
+    elif choice == "mobilev2":
+        model = make_model_mobilev2(num_classes,input_shape=image_size + (3,))
+    elif choice == "dense201":
+        model = make_model_dense201(num_classes,input_shape=image_size + (3,))
+    elif choice == "efficientB5":
+        model = make_model_efficientB5(num_classes,input_shape=image_size + (3,))
     return model
 
-train_ds=load_train_ds()
-val_ds=load_val_ds()
-model = model_choice(model_variant)
-compile_model(model)
-fit_model(model,train_ds,val_ds,epochs)
+""""""
+#models = ["basic", "xception", "vgg19", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
+models = ["xception"]
+for type in models:
+
+
+
+    dataset_directory = "flower299" #flowers/fruits/flower299
+    num_classes=299              #5      /23    /299
+
+    model_variant = type #"resnet50v2"
+    validation_split = 0.2
+    epochs = 50
+    image_size = (160, 160)
+    batch_size = 32
+
+    tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
+
+    print("Type: ", model_variant)
+    train_ds=load_train_ds()
+    val_ds=load_val_ds()
+    model = model_choice(model_variant)
+    compile_model(model)
+    fit_model(model,train_ds,val_ds,epochs)

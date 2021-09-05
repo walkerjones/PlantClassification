@@ -27,7 +27,7 @@ def classify(dataset,model_variant,model_choice,unique,verbosity):
     for fname in os.listdir(folder_path):
         for filename in os.listdir(os.path.join(folder_path, fname)):
             fpath = os.path.join(folder_path, fname, filename)
-            image_size = (180, 180) 
+            image_size = (178, 178) 
             img = keras.preprocessing.image.load_img(fpath, target_size=image_size)
             img_array = keras.preprocessing.image.img_to_array(img)
             img_array = tf.expand_dims(img_array, 0)  # Create batch axis
@@ -90,7 +90,7 @@ def evaluation(dataset,model_variant,model_choice,unique):
     model = load_model(dataset,model_variant,model_choice)
     train_ds = tf.keras.preprocessing.image_dataset_from_directory(
         os.path.join("test_images", dataset),
-        image_size=(180, 180),
+        image_size=(178, 178),
         batch_size=32)
     train_ds = train_ds.prefetch(buffer_size=32)
     score = model.evaluate(train_ds)
@@ -103,10 +103,10 @@ def evaluation(dataset,model_variant,model_choice,unique):
 
 
 
-dataset = "flower299"
-model_variant = "advanced"
-model_choice = "save_99.h5"
-unique_name = "test99"
+dataset = "fruits"
+model_variant = "resnet50v2"
+model_choice = "save_50.h5"
+unique_name = model_variant
 verbosity ="silent"
 
 classify(dataset, model_variant, model_choice, unique_name, verbosity)

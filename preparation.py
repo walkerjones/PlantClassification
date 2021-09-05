@@ -75,34 +75,29 @@ def labels_under_value(labels_numbers, value):
         result = [0.0]
     return np.array(result)
 
-def statistics(choice, goal_nr_per_label):
+def statistics(choice):
     """
     Produces statistics for the dataset (avgs, means, stds etc)
     """
     choice = os.path.join("datasets", choice)
-    nr_specimens_per_fruit = get_dataset_label_numbers(choice)
-    print(np.sum(nr_specimens_per_fruit))
-    label_width_x_height_values = get_dataset_dimensions(choice, label_numbers=nr_specimens_per_fruit)
+    nr_specimens = get_dataset_label_numbers(choice)
+    print(np.sum(nr_specimens))
+    label_width_x_height_values = get_dataset_dimensions(choice, label_numbers=nr_specimens)
     label_height_values = np.array([x[0] for x in label_width_x_height_values])
     label_width_values = np.array([x[1] for x in label_width_x_height_values])
-    labels_under = labels_under_value(nr_specimens_per_fruit, goal_nr_per_label)
-    print("Total number of labels: ", len(nr_specimens_per_fruit))
-    print("Target image number for label: ", goal_nr_per_label)
-    print("Labels Under target value: ", len(labels_under) - 1 * (labels_under[0] == 0.0))
-    print("Average missing images: ", np.average(labels_under))
-    print("Median missing images: ", np.median(labels_under))
-    print("Standard deviation of missing images: ", np.std(labels_under))
-    print("Average nr of images per label: ", np.average(nr_specimens_per_fruit))
-    print("Median nr of images per label: ", np.median(nr_specimens_per_fruit))
-    print("Standard deviation of images per label: ", np.std(nr_specimens_per_fruit))
-    print("Average width of image: ", np.average(label_width_values))
-    print("Median width of image: ", np.median(label_width_values))
-    print("Standard deviation of width of image: ", np.std(label_width_values))
-    print("Average height of image: ", np.average(label_height_values))
-    print("Median height of image: ", np.median(label_height_values))
-    print("Standard deviation of height of image: ", np.std(label_height_values))
+    print("Liczba klas: ", len(nr_specimens))
+    print("Średnia liczba zdjęć na klasę: ", np.average(nr_specimens))
+    print("Mediana liczby zdjęć na klasę: ", np.median(nr_specimens))
+    print("Odchylenie std zdjęć na klasę: ", np.std(nr_specimens))
+    print("Średnia szerokość obrazu: ", np.average(label_width_values))
+    print("Mediana szerokości obrazu: ", np.median(label_width_values))
+    print("Odchylenie std szerokości zdjęć: ", np.std(label_width_values))
+    print("Średnia wysokość obrazu: ", np.average(label_height_values))
+    print("Mediana wysokości obrazu: ", np.median(label_height_values))
+    print("Odchylenie std wysokości zdjęć: ", np.std(label_height_values))
 
 ##choice: fruits/flowers/flower299
+choice = "fruits"
 
-cleaning("fruits")
-#statistics("fruits",1000)
+cleaning(choice)
+statistics(choice)
