@@ -3,7 +3,6 @@ import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
-import matplotlib.patheffects as path_effects
 from pathlib import Path
 import numpy as np
 import os
