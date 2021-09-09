@@ -55,17 +55,6 @@ def make_model_xception(num_classes,input_shape):
     classifier_activation="softmax",)
     return model
 
-def make_model_vgg19(num_classes,input_shape):
-    model = tf.keras.applications.VGG19(
-    include_top=True,
-    weights=None,
-    input_tensor=None,
-    input_shape=input_shape,
-    pooling=None,
-    classes=num_classes,
-    classifier_activation="softmax")
-    return model
-
 def make_model_resnet50v2(num_classes,input_shape):
     model = tf.keras.applications.ResNet50V2(
     include_top=True,
@@ -138,8 +127,6 @@ def model_choice(choice):
         model = make_model_basic(num_classes,input_shape=image_size + (3,))
     elif choice == "xception":
         model = make_model_xception(num_classes,input_shape=image_size + (3,))
-    elif choice == "vgg19":
-        model = make_model_vgg19(num_classes,input_shape=image_size + (3,))
     elif choice == "resnet50v2":
         model = make_model_resnet50v2(num_classes,input_shape=image_size + (3,))
     elif choice == "mobilev2":
@@ -151,22 +138,20 @@ def model_choice(choice):
     return model
 
 """"""
-#models = ["basic", "xception", "vgg19", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
-models = ["xception"]
+#models = ["basic", "xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
+models = ["basic", "xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
 for type in models:
-
-
 
     dataset_directory = "flower299" #flowers/fruits/flower299
     num_classes=299              #5      /23    /299
 
-    model_variant = type #"resnet50v2"
+    model_variant = type 
     validation_split = 0.2
-    epochs = 50
-    image_size = (160, 160)
-    batch_size = 32
+    epochs = 15
+    image_size = (192, 192)
+    batch_size = 16
 
-    tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
+    #tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
 
     print("Type: ", model_variant)
     train_ds=load_train_ds()

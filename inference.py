@@ -20,13 +20,11 @@ def classify(dataset,model_variant,model_choice,unique,verbosity):
     classes = len(class_names)
     indices = np.arange(classes)
 
-    significant_floor = 1/classes
-
     folder_path=os.path.join("test_images",dataset)
     for fname in os.listdir(folder_path):
         for filename in os.listdir(os.path.join(folder_path, fname)):
             fpath = os.path.join(folder_path, fname, filename)
-            image_size = (178, 178) 
+            
             img = keras.preprocessing.image.load_img(fpath, target_size=image_size)
             img_array = keras.preprocessing.image.img_to_array(img)
             img_array = tf.expand_dims(img_array, 0)  # Create batch axis
@@ -87,12 +85,12 @@ def classify(dataset,model_variant,model_choice,unique,verbosity):
 
 def evaluation(dataset,model_variant,model_choice,unique): 
     model = load_model(dataset,model_variant,model_choice)
-    train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+    test_ds = tf.keras.preprocessing.image_dataset_from_directory(
         os.path.join("test_images", dataset),
-        image_size=(178, 178),
+        image_size=image_size,
         batch_size=32)
-    train_ds = train_ds.prefetch(buffer_size=32)
-    score = model.evaluate(train_ds)
+    test_ds = test_ds.prefetch(buffer_size=32)
+    score = model.evaluate(test_ds)
     textt=str(f'Test loss: {score[0]} / Test accuracy: {score[1]}')
     print(textt)
     directory = os.path.join("saves", "graphics", dataset, "inference", unique)
@@ -101,12 +99,15 @@ def evaluation(dataset,model_variant,model_choice,unique):
         text_file.write(textt) 
 
 
-
-dataset = "fruits"
-model_variant = "resnet50v2"
-model_choice = "save_50.h5"
-unique_name = model_variant
+image_size = (192, 192) 
 verbosity ="silent"
+models = ["basic", "xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
+dataset = "flowers"
+model_choice = "save_best.h5"
+epochs = 50
 
-classify(dataset, model_variant, model_choice, unique_name, verbosity)
-evaluation(dataset, model_variant, model_choice, unique_name)
+for i in range(len(models)):
+    model_variant = models[i]
+    unique_name = model_variant + ""
+    classify(dataset, model_variant, model_choice, unique_name, verbosity)
+    evaluation(dataset, model_variant, model_choice, unique_name)

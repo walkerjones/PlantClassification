@@ -1,6 +1,8 @@
 import tensorflow as tf
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
+from pathlib import Path
 import os
 
 def cleaning(choice):
@@ -66,38 +68,68 @@ def get_dataset_dimensions(path=None, label_numbers=None):
         dimensions.append([label_height / label_numbers[index], label_width / label_numbers[index]])
     return np.array(dimensions)
 
-def labels_under_value(labels_numbers, value):
-    result = []
-    for el in labels_numbers:
-        if el < value:
-            result.append(el)
-    if not result:
-        result = [0.0]
-    return np.array(result)
-
 def statistics(choice):
     """
     Produces statistics for the dataset (avgs, means, stds etc)
     """
-    choice = os.path.join("datasets", choice)
-    nr_specimens = get_dataset_label_numbers(choice)
+    paths = os.path.join("datasets", choice)
+    nr_specimens = get_dataset_label_numbers(paths)
     print(np.sum(nr_specimens))
-    label_width_x_height_values = get_dataset_dimensions(choice, label_numbers=nr_specimens)
+    label_width_x_height_values = get_dataset_dimensions(paths, label_numbers=nr_specimens)
     label_height_values = np.array([x[0] for x in label_width_x_height_values])
     label_width_values = np.array([x[1] for x in label_width_x_height_values])
-    print("Liczba klas: ", len(nr_specimens))
-    print("Średnia liczba zdjęć na klasę: ", np.average(nr_specimens))
-    print("Mediana liczby zdjęć na klasę: ", np.median(nr_specimens))
-    print("Odchylenie std zdjęć na klasę: ", np.std(nr_specimens))
-    print("Średnia szerokość obrazu: ", np.average(label_width_values))
-    print("Mediana szerokości obrazu: ", np.median(label_width_values))
-    print("Odchylenie std szerokości zdjęć: ", np.std(label_width_values))
-    print("Średnia wysokość obrazu: ", np.average(label_height_values))
-    print("Mediana wysokości obrazu: ", np.median(label_height_values))
-    print("Odchylenie std wysokości zdjęć: ", np.std(label_height_values))
+    textt = str("Liczba klas: "+ str(len(nr_specimens))+
+        "\nŚrednia liczba zdjęć na klasę: "+ str(np.average(nr_specimens))+
+        "\nMediana liczby zdjęć na klasę: "+ str(np.median(nr_specimens))+
+        "\nOdchylenie std zdjęć na klasę: "+ str(np.std(nr_specimens))+
+        "\nŚrednia szerokość obrazu: "+ str(np.average(label_width_values))+
+        "\nMediana szerokości obrazu: "+ str(np.median(label_width_values))+
+        "\nOdchylenie std szerokości zdjęć: "+ str(np.std(label_width_values))+
+        "\nŚrednia wysokość obrazu: "+ str(np.average(label_height_values))+
+        "\nMediana wysokości obrazu: "+ str(np.median(label_height_values))+
+        "\nOdchylenie std wysokości zdjęć: "+ str(np.std(label_height_values)))
+    directory = os.path.join("saves", "graphics", choice)
+    Path(directory).mkdir(parents=True, exist_ok=True)
+    with open(os.path.join(directory,"stats.txt"), "w") as text_file:
+        text_file.write(textt) 
+    
 
-##choice: fruits/flowers/flower299
-choice = "fruits"
+def load_ds():
+    ##Load dataset
+    train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+        os.path.join("datasets", choice),
+        image_size=(224, 224),
+        batch_size=32,
+    )
+    ##Prefetch
+    train_ds = train_ds.prefetch(buffer_size=32)
+    return train_ds
 
-cleaning(choice)
-statistics(choice)
+def examples(choice):
+    txtfile = open(os.path.join("datasets", choice, "classes_pl.txt"), encoding="utf-8")
+    class_names = txtfile.read()
+    class_names = class_names.split(",")    
+    train_ds=load_ds()
+    fig = plt.figure(figsize=(7,3.5))
+    plt.rcParams.update({'font.size': 7})
+    for images, labels in train_ds.take(1):
+        for i in range(1, 9):
+            fig.add_subplot(2, 4, i)
+            plt.imshow(images[i].numpy().astype("uint8"))
+            plt.title(class_names[int(labels[i])])
+            plt.axis("off")
+    directory = os.path.join("saves", "graphics",choice)
+    Path(directory).mkdir(parents=True, exist_ok=True)
+    plt.savefig(os.path.join(directory,"examples_"+choice+".png"),
+        bbox_inches='tight',transparent = True, dpi=600)
+    plt.close()
+
+
+#choices= ["fruits", "flowers", "flower299"]  
+choices= ["flower299"]
+
+for choice in choices:
+    #cleaning(choice)
+    #statistics(choice)
+    examples(choice)
+
