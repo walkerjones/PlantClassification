@@ -125,11 +125,10 @@ def examples(choice):
     plt.close()
 
 
-#choices= ["fruits", "flowers", "flower299"]  
-choices= ["flower299"]
+choices= ["fruits", "flowers", "flower299"]  
 
 for choice in choices:
-    #cleaning(choice)
-    #statistics(choice)
+    cleaning(choice)
+    statistics(choice)
     examples(choice)
 

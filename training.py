@@ -138,18 +138,17 @@ def model_choice(choice):
     return model
 
 """"""
-#models = ["basic", "xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
 models = ["basic", "xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
 for type in models:
 
-    dataset_directory = "flower299" #flowers/fruits/flower299
-    num_classes=299              #5      /23    /299
+    dataset_directory = "flowers" #flowers/fruits/flower299
+    num_classes=5              #5      /23    /299
 
     model_variant = type 
     validation_split = 0.2
-    epochs = 15
-    image_size = (192, 192)
-    batch_size = 16
+    epochs = 50
+    image_size = (160, 160)
+    batch_size = 32
 
     #tf.keras.mixed_precision.experimental.set_policy('mixed_float16')
 

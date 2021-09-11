@@ -1,7 +1,9 @@
+from ast import NameConstant
 import tensorflow as tf
 from tensorflow import keras
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
+import matplotlib.patheffects as path_effects
 from pathlib import Path
 import numpy as np
 import os
@@ -85,13 +87,17 @@ def compare_history(dataset_directory, epochs, models, legends, timetable, timed
         if ((topic == 'loss') or (topic == 'val_loss')):
             plt.yscale('log')            
         else:
-            plt.yscale('linear')            
-                    
+            plt.yscale('linear')    
+
         xpoints = range(1,epochs+1)
         xname = "epoka"
 
         for time_factor, model in zip(timetable, models):
-            
+            #correction for shorter history
+            if model == "efficientB5":
+                epochs = 25
+            else:
+                epochs = 50
             xpoints = range(1,epochs+1)
             xname = "epoka"
             if timed:
@@ -104,7 +110,7 @@ def compare_history(dataset_directory, epochs, models, legends, timetable, timed
         if not timed:
             plt.xticks(range(0,55,5))
         else:
-            plt.xticks(range(0,240,30))
+            plt.xticks(range(0,40,5))
         plt.ylabel(topic_label)
         
         plt.xlabel(xname)
@@ -132,16 +138,74 @@ def draw_model(model_variant,model):
     with open(os.path.join("saves", "graphics", model_variant+".txt"), "w") as text_file:
         model.summary(print_fn=lambda x: text_file.write(x+ '\n'))
 
-""""""
-#models = ["basic", "xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
-models = ["basic", "xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5"]
-legends = ["Basic", "Xception", "ResNet50V2" , "MobileNetV2", "DenseNet201", "EfficientNetB5"]
-timetable =[83, 223, 191, 111, 390, 713]
+def compare_evaluation():
+    datasets = ["flowers", "fruits", "flower299"]
+    directory = os.path.join("saves", "graphics")
+    Path(directory).mkdir(parents=True, exist_ok=True)
+    names = ["Xception", "ResNet50V2" , "MobileNetV2", "DenseNet201", "EfficientNetB5"]
+    for dataset in datasets:
+        if dataset == "flower299":
+            amount = 5
+            accs=[0.633, 0.600, 0.466, 0.5, 0.466]
+            losses=[2.193, 2.65, 1.744, 2.53, 1.617]
+        elif dataset == "fruits":
+            amount = 5
+            accs=[0.923, 0.807, 0.807, 0.9615, 0.846]#, 0.134]
+            losses=[0.2355, 0.6239,  1.107, 0.092, 0.553]#, 14.78]
+        else:
+            amount = 5
+            accs=[0.888, 0.814, 0.703, 0.925, 0.666]#, 0.259]
+            losses=[0.249, 0.923, 1.44, 0.286, 2.950]#, 10.8]
+        plt.rcParams.update({'font.size': 7})
+        plt.figure(figsize=(7.0,2))
+        #spec = gridspec.GridSpec(ncols=2, nrows=1, width_ratios=[2,2])
+        #ax0 = fig.add_subplot(spec[0])
+        #ax1 = fig.add_subplot(spec[1])
+        #plt.ylim([0, 110])
+        plt.xticks(range(5),names)
+        X=np.arange(amount)
+        for xrift, values in zip([-0.2, 0.2],[accs, losses]):
+            plt.bar(X+xrift, values, width = 0.4)
 
-dataset_directory = "fruits"
+        for i in range(amount):
+            if(accs[i] <0.1):
+                plt.text(-0.2+i-0.12, accs[i]*1.1, ('{:.1%}'.format(accs[i])), size=7)
+            elif(accs[i] < 0.8):
+                plt.text(-0.2+i-0.17, accs[i]*1.1, ('{:.1%}'.format(accs[i])), size=7)
+            elif(accs[i] < 1):
+                tekst = plt.text(-0.2+i-0.15, accs[i]*0.77, ('{:.1%}'.format(accs[i])), 
+                    color='white', fontweight='semibold', size=7)
+                tekst.set_path_effects([path_effects.withStroke(linewidth=1, foreground='gray')])
+            else:
+                tekst = plt.text(-0.2+i-0.20, accs[i]*0.85, ('{:.1%}'.format(accs[i])), 
+                    color='white', fontweight='semibold', size=7)
+                tekst.set_path_effects([path_effects.withStroke(linewidth=1, foreground='gray')])
+        for i in range(amount):
+            if(losses[i] <0.1):
+                plt.text(0.2+i-0.11, losses[i]*1.2, ('{:.1}'.format(losses[i])), size=8)
+            elif(losses[i] < 0.8):
+                plt.text(0.2+i-0.09, losses[i]*1.1, ('{:.1}'.format(losses[i])), size=8)
+            elif(losses[i] < 1):
+                tekst = plt.text(0.2+i-0.08, losses[i]*0.7, ('{:.1}'.format(losses[i])), 
+                    color='white', fontweight='semibold', size=8,)
+                tekst.set_path_effects([path_effects.withStroke(linewidth=1, foreground='gray')])
+            else:
+                tekst = plt.text(0.2+i-0.09, losses[i]*0.85, ('{:.2}'.format(losses[i])), 
+                    color='white', fontweight='semibold', size=8)
+                tekst.set_path_effects([path_effects.withStroke(linewidth=1, foreground='gray')])
+                        
+        plt.legend(['dokładność', 'strata'])
+        plt.savefig(os.path.join(directory,dataset,"evaluations.png"),
+            bbox_inches='tight',transparent = True, dpi=600)
+        plt.close()
+
+models = ["xception", "resnet50v2" , "mobilev2", "dense201", "efficientB5", "basic"]
+legends = ["Xception", "ResNet50V2" , "MobileNetV2", "DenseNet201", "EfficientNetB5", "Basic"]
+timetable =[223, 191, 111, 390, 713, 83]
+
+dataset_directory = "flowers"
 model_choice = "save_best.h5"
 epochs = 50
-
 
 for i in range(len(models)):
     model_variant = models[i]
@@ -152,6 +216,6 @@ for i in range(len(models)):
     model=load_model(dataset_directory, model_variant, model_choice)
     draw_model(model_variant,model)
 
-
 compare_history(dataset_directory, epochs, models, legends, timetable, 0)
 compare_history(dataset_directory, epochs, models, legends, timetable, 1)
+#compare_evaluation()
